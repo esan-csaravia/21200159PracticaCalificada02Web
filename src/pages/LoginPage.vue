@@ -65,14 +65,13 @@
 
 <script>
 import { ref } from 'vue'
-import { useQuasar } from 'quasar'
+import { Notify } from 'quasar'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
 export default {
   name: 'LoginPage',
   setup() {
-    const $q = useQuasar()
     const router = useRouter()
     const email = ref('')
     const password = ref('')
@@ -80,6 +79,8 @@ export default {
     const loading = ref(false)
 
     const onSubmit = async () => {
+      if (loading.value) return // Evitar múltiples llamados
+      
       loading.value = true
       try {
         const response = await axios.post(
@@ -88,7 +89,15 @@ export default {
             email: email.value,
             password: password.value,
           },
+          {
+            headers: {
+              accept: '*/*',
+              'Content-Type': 'application/json',
+            },
+          },
         )
+
+        console.log('Login response:', response.data)
 
         // Guardar el token o información del usuario
         if (response.data) {
@@ -100,28 +109,24 @@ export default {
           }
         }
 
-        $q.notify({
+        Notify.create({
           type: 'positive',
           message: 'Login exitoso',
           position: 'top',
         })
 
-        // Redirigir a la página principal después de un pequeño delay
+        loading.value = false
+
+        // Redirigir a la página principal
         console.log('Redirecting to /home...')
-        setTimeout(() => {
-          router.push('/home').then(() => {
-            console.log('Navigation successful')
-          }).catch((err) => {
-            console.error('Navigation error:', err)
-          })
-        }, 500)
+        router.push('/home')
       } catch (error) {
-        $q.notify({
+        console.error('Login error:', error)
+        Notify.create({
           type: 'negative',
           message: error.response?.data?.message || 'Error al iniciar sesión',
           position: 'top',
         })
-      } finally {
         loading.value = false
       }
     }
