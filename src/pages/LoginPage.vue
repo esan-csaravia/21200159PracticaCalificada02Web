@@ -80,7 +80,7 @@ export default {
 
     const onSubmit = async () => {
       if (loading.value) return // Evitar múltiples llamados
-      
+
       loading.value = true
       try {
         const response = await axios.post(
