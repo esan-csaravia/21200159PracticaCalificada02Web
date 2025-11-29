@@ -51,17 +51,8 @@
         :key="digimon.name"
         class="col-12 col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-2"
       >
-        <q-card 
-          class="digimon-card full-height" 
-          clickable
-          @click="goToDetail(digimon.name)"
-        >
-          <q-img
-            :src="digimon.img"
-            :alt="digimon.name"
-            ratio="1"
-            class="digimon-image"
-          >
+        <q-card class="digimon-card full-height" clickable @click="goToDetail(digimon.name)">
+          <q-img :src="digimon.img" :alt="digimon.name" ratio="1" class="digimon-image">
             <template v-slot:loading>
               <q-spinner-gears color="primary" />
             </template>
@@ -75,13 +66,7 @@
           </q-card-section>
 
           <q-card-actions align="right" class="q-pa-sm">
-            <q-btn 
-              flat 
-              dense 
-              color="primary" 
-              icon="visibility" 
-              size="sm"
-            >
+            <q-btn flat dense color="primary" icon="visibility" size="sm">
               <q-tooltip>Ver detalles</q-tooltip>
             </q-btn>
           </q-card-actions>
@@ -90,12 +75,9 @@
     </div>
 
     <!-- Sin resultados -->
-    <div
-      v-if="!loading && filteredDigimons.length === 0"
-      class="text-center q-pa-xl text-grey-7"
-    >
+    <div v-if="!loading && filteredDigimons.length === 0" class="text-center q-pa-xl text-grey-7">
       <q-icon name="search_off" size="48px" class="q-mb-md" />
-      <div class="text-h6 text-body1-sm">No se encontraron Digimons</div>
+      <div class="text-h6 text-body1-sm">No se encontraron Digimones</div>
     </div>
 
     <!-- Paginación -->
@@ -114,8 +96,11 @@
     </div>
 
     <!-- Info de paginación -->
-    <div v-if="!loading && filteredDigimons.length > 0" class="text-center q-mb-md text-grey-7 text-caption text-body2-md">
-      Mostrando {{ startIndex + 1 }} - {{ endIndex }} de {{ filteredDigimons.length }} Digimons
+    <div
+      v-if="!loading && filteredDigimons.length > 0"
+      class="text-center q-mb-md text-grey-7 text-caption text-body2-md"
+    >
+      Mostrando {{ startIndex + 1 }} - {{ endIndex }} de {{ filteredDigimons.length }} Digimones
     </div>
   </q-page>
 </template>
@@ -186,9 +171,7 @@ const filterDigimons = () => {
 
   // Filtrar por nombre
   if (searchName.value) {
-    result = result.filter((d) =>
-      d.name.toLowerCase().includes(searchName.value.toLowerCase())
-    )
+    result = result.filter((d) => d.name.toLowerCase().includes(searchName.value.toLowerCase()))
   }
 
   // Filtrar por nivel
@@ -216,7 +199,9 @@ onMounted(() => {
 
 <style scoped>
 .digimon-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   cursor: pointer;
   height: 100%;
   display: flex;
@@ -245,4 +230,3 @@ onMounted(() => {
   }
 }
 </style>
-

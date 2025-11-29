@@ -59,9 +59,9 @@
                 <div class="text-body1 q-mt-md">
                   <p class="text-grey-8">
                     <strong>{{ digimon.name }}</strong> es un Digimon de nivel
-                    <strong>{{ digimon.level }}</strong>. Los Digimon de este nivel
-                    poseen características únicas y habilidades especiales que los hacen
-                    destacar en el mundo digital.
+                    <strong>{{ digimon.level }}</strong
+                    >. Los Digimon de este nivel poseen características únicas y habilidades
+                    especiales que los hacen destacar en el mundo digital.
                   </p>
                 </div>
 
@@ -74,13 +74,7 @@
                     outline
                     class="q-mr-sm q-mb-sm"
                   />
-                  <q-btn
-                    color="secondary"
-                    label="Compartir"
-                    icon="share"
-                    outline
-                    class="q-mb-sm"
-                  />
+                  <q-btn color="secondary" label="Compartir" icon="share" outline class="q-mb-sm" />
                 </div>
               </q-card-section>
             </div>
@@ -93,12 +87,7 @@
     <div v-else class="text-center q-pa-xl">
       <q-icon name="error_outline" size="64px" color="negative" />
       <div class="text-h6 q-mt-md">No se pudo cargar el Digimon</div>
-      <q-btn
-        color="primary"
-        label="Volver"
-        @click="goBack"
-        class="q-mt-md"
-      />
+      <q-btn color="primary" label="Volver" @click="goBack" class="q-mt-md" />
     </div>
   </q-page>
 </template>
@@ -119,9 +108,9 @@ const fetchDigimonDetail = async () => {
   try {
     const digimonName = route.params.name
     const response = await axios.get(
-      `https://digimon-api.vercel.app/api/digimon/name/${digimonName}`
+      `https://digimon-api.vercel.app/api/digimon/name/${digimonName}`,
     )
-    
+
     if (response.data && response.data.length > 0) {
       digimon.value = response.data[0]
     } else {
@@ -186,7 +175,7 @@ onMounted(() => {
   .digimon-detail-image {
     height: 250px;
   }
-  
+
   .info-item {
     font-size: 1rem;
   }
